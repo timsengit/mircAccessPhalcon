@@ -1,0 +1,13 @@
+<h1><td><a href="/admin/index/add">添加</a></td></h1>
+<?php foreach ($users as $row) {;?>
+    <tr>
+        <td class="option">
+            <input name="" class="checkbox" type="checkbox">
+        </td>
+        <td><strong><?=$row['name'];?></strong></td>
+        <td><?=$row['addTime'];?></td>
+        <td></td>
+        <td><a href="/admin/index/add?r=1">编辑</a></td>
+    </tr>
+<?php }
+;?>

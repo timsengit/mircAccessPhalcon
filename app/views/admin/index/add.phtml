@@ -1,0 +1,37 @@
+<form action="/admin/index/save" method="post">
+<div class="container">
+    <h3 class="marginbot">添加<a href="/admin/index/list" class="sgbtn">返回列表</a></h3>
+    <div class="mainbox">
+        <table class="login_tab">
+            <tr>
+                <td>用户名:</td>
+                <td><input type="text" id="name" tabindex="1" class="txt" name="name" value="" /></td>
+            </tr>
+            <tr>
+                <td>密码:</td>
+                <td><input type="textpassword"  id="pwd" tabindex="2" class="txt" name="pwd" value="" /></td>
+            </tr>
+            <tr>
+                <td>性别：</td>
+                <td><label><input name="sex" type="radio" value="男" />男 </label>
+                    <label><input name="sex" type="radio" value="女" />女 </label></td>
+            </tr>
+            <tr>
+                <td>手机:</td>
+                <td><input type="text"  id="mobile" tabindex="2" class="txt" name="mobile" value="" /></td>
+            </tr>
+            <tr>
+                <td>用户组:</td>
+                <td>    <select name="group">
+                        <?php foreach ($group as $row);{?>
+                        <option value=<?php echo $row['id']; ?>><?php echo $row['groupName']; ?></option>
+                            <?php };?>
+
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <div class="opt"><input name="submit" value=" 提 交 " class="btn" tabindex="3" type="submit"></div>
+    </div>
+</div>
+</form>

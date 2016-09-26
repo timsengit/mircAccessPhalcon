@@ -6,10 +6,10 @@ return new \Phalcon\Config([
     'debug'        => true, //是否开启调试模式
     'database'     => [
         'adapter'  => 'Mysql',
-        'host'     => '172.16.50.24',
-        'username' => 'root',
-        'password' => 'fufangjie',
-        'dbname'   => 'jinling',
+        'host'     => '192.168.105.128',
+        'username' => 'ycf',
+        'password' => 'b50unl',
+        'dbname'   => 'ycfdb',
         'charset'  => 'utf8',
         'port'     => '3306',
     ],

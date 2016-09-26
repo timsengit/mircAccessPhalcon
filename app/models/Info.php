@@ -7,7 +7,11 @@ class Info extends Model
 {
     public function getSource()
     {
-        return 'information';
+        return 'info';
     }
 
+    public function getInfo()
+    {
+        return $this->db->select('info', '*');
+    }
 }
