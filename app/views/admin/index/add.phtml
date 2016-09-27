@@ -22,11 +22,13 @@
             </tr>
             <tr>
                 <td>用户组:</td>
-                <td>    <select name="group">
-                        <?php foreach ($group as $row);{?>
-                        <option value=<?php echo $row['id']; ?>><?php echo $row['groupName']; ?></option>
-                            <?php };?>
-
+                <td>
+                    <select id="group" name="group" onclick="updataByIds('/admin/account/city')">
+                        <option value="" name="group">请选择用户组</option>
+                        <?php foreach ($group as $row) {;?>
+                            <option value="<?=$row['id'];?>"><?=$row['groupName'];?></option>
+                        <?php }
+;?>
                     </select>
                 </td>
             </tr>

@@ -60,9 +60,12 @@ class IndexController extends BaseController
 
                     //var_dump($this->session->get("adminName"));die;
 
-                    $users = (new User())->getUser();
-                    $this->view->setVar('users', $users);
-                    $this->view->pick('index/list');
+                    // 将流转发到当前控制器的另一个动作
+                    // 传递参数
+                    $this->dispatcher->forward(array(
+                        "controller" => "index",
+                        "action"     => "list",
+                    ));
                     //$this->view->redirect('admin/index/list');
                     //$this->listAction();
 
@@ -96,12 +99,23 @@ class IndexController extends BaseController
             ['name'   => $name,
                 'pwd'     => $pwd,
                 'sex'     => $sex,
+                'addTime' => time(),
                 'phone'   => $mobile,
                 'groupId' => $group,
             ]);
         $users = (new User())->getUser();
         $this->view->setVar('users', $users);
         $this->view->pick('index/list');
+    }
+    public function editAction()
+    {
+        $request = $this->request;
+        echo $request->get('id');
+        die;
+        $group = (new Group())->getGroups();
+        // var_dump($group);die;
+        $this->view->setVar('group', $group);
+
     }
 
 }
