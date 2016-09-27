@@ -26,6 +26,9 @@ class IndexController extends BaseController
     }
     public function loginAction()
     {
+        //如果是因为权限不足退至登录页面，则获取返回的权限错误
+        $this->view->permissionMsg = $this->dispatcher->getParam("message");
+
         if ($this->request->isPost()) {
             $adminName = $this->request->getPost('adminName', 'string');
             $adminPwd  = $this->request->getPost('adminPwd', 'string');
@@ -51,7 +54,7 @@ class IndexController extends BaseController
                     $super = parent::isSuper($check['info']['groupId']);
                     // var_dump($super);
                     //die;
-                    $add = parent::hasAdd($check['info']['groupId']);
+                    // $add = parent::hasAdd($check['info']['groupId']);
                     //var_dump($super);die;
                     //注册seeion 存储用户名 权限
                     $this->session->set("adminName", $check['info']['name']);
@@ -65,6 +68,7 @@ class IndexController extends BaseController
                     $this->dispatcher->forward(array(
                         "controller" => "index",
                         "action"     => "list",
+                        //"params"     => array('year' => 111111111, '11' => 11111),
                     ));
                     //$this->view->redirect('admin/index/list');
                     //$this->listAction();
@@ -76,6 +80,8 @@ class IndexController extends BaseController
 
     public function listAction()
     {
+
+        //echo $this->dispatcher->getParam("11");die;
         $users = (new User())->getUser();
         $this->view->setVar('users', $users);
     }

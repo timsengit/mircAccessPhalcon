@@ -12,6 +12,7 @@
     <div class="login-form">
         <div class="form">
             <div class="adminlogo"><h1>请登录</h1></div>
+            <?php if (isset($permissionMsg) && !empty($permissionMsg)): ?><div class="errormsg"><i class="icon icon-warning-sign"></i> <?php echo $permissionMsg; ?></div><?php endif;?>
             <form id="loginForm" action="/admin/index/login" method="post">
                 <div class="formitem">
                     <input type="text" class="form-ipt" id="loginform_user" name="adminName" placeholder="请输入登录账号">

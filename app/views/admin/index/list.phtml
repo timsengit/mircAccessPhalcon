@@ -1,6 +1,9 @@
 <h1><td><a href="/admin/index/add">添加</a></td></h1>
+<!--<h1><td>--><?php //echo $this->session->get("adminName"); ;;;?><!--</td></h1>-->
+
 <?php foreach ($users as $row) {
     ;?>
+    <div>
     <tr>
         <td class="option">
             <input name="" class="checkbox" type="checkbox">
@@ -8,11 +11,8 @@
         <td><strong><?=$row['name'];?></strong></td>
         <td><?=$row['addTime'];?></td>
         <td></td>
-        <?php $id = $row['id'];
-    echo $hr          = "/admin/index/edit?id=" . $id;
-    ?>
-        <?=$this->tag->linkTo("/admin/index/login", "Search");?>
         <td><a href="/admin/index/edit?id=<?=$row['id'];?>">编辑</a></td>
     </tr>
+    </div>
 <?php }
 ;?>
