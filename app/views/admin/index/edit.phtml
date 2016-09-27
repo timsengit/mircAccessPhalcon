@@ -1,0 +1,40 @@
+<form action="/admin/index/save" method="post">
+<div class="container">
+    <h3 class="marginbot">修改<a href="/admin/index/list" class="sgbtn">取消</a></h3>
+    <div class="mainbox">
+        <table class="login_tab">
+            <tr>
+
+                <td>用户名:</td>
+                <td><input type="text" id="name" tabindex="1" class="txt" name="name" value=<?=$user[0]['name'];?>  /></td>
+            </tr>
+            <tr>
+                <td>密码:</td>
+                <td><input type="textpassword"  id="pwd" tabindex="2" class="txt" name="pwd" value=<?=$user[0]['pwd'];?> /></td>
+            </tr>
+            <tr>
+                <td>性别：</td>
+                <td><label><input name="sex" type="radio" value="男" />男 </label>
+                    <label><input name="sex" type="radio" value="女" />女 </label></td>
+            </tr>
+            <tr>
+                <td>手机:</td>
+                <td><input type="text"  id="mobile" tabindex="2" class="txt" name="mobile" value=<?=$user[0]['phone'];?> /></td>
+            </tr>
+            <tr>
+                <td>用户组:</td>
+                <td>
+                    <select id="group" name="group" onclick="updataByIds('/admin/account/city')">
+                        <option value="" name="group">请选择用户组</option>
+                        <?php foreach ($group as $row) {;?>
+                            <option value="<?=$row['id'];?>"><?=$row['groupName'];?></option>
+                        <?php }
+;?>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <div class="opt"><input name="submit" value=" 提 交 " class="btn" tabindex="3" type="submit"></div>
+    </div>
+</div>
+</form>

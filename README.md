@@ -13,8 +13,9 @@
   ##实现原理：
 1.登录时保持Session信息
 2.登入后使用控制器资源时判断权限
-`class PostsController extends \Phalcon\Mvc\Controller
- {
+
+	`class PostsController extends \Phalcon\Mvc\Controller{`
+ `
 
      public function beforeExecuteRoute($dispatcher)
      {

@@ -7,7 +7,7 @@
     <title>用户管理</title>
 
     <!-- Bootstrap -->
-    <link href="/admin/css/bootstrap.min.css" rel="stylesheet">
+    <link href="admin/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -21,6 +21,7 @@
     <div class="login-form">
         <div class="form">
             <div class="container"><h1>请登录</h1></div>
+            <?php if (isset($permissionMsg) && !empty($permissionMsg)): ?><div class="errormsg"><i class="icon icon-warning-sign"></i> <?php echo $permissionMsg; ?></div><?php endif;?>
             <form id="loginForm" action="/admin/index/login" method="post">
                 <div class="formitem">
                     <input type="text" class="form-ipt" id="loginform_user" name="adminName" placeholder="请输入登录账号">
@@ -40,6 +41,6 @@
 </div>
 <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/admin/js/bootstrap.min.js"></script>
+<script src="admin/js/bootstrap.min.js"></script>
 </body>
 </html>

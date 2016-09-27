@@ -116,11 +116,24 @@ class IndexController extends BaseController
     public function editAction()
     {
         $request = $this->request;
-        echo $request->get('id');
-        die;
+        $id      = $request->get('id');
+        $user    = new User();
+        $userone = $user->select('*', ['id' => $id]);
+        $this->view->setVar('user', $userone);
         $group = (new Group())->getGroups();
         // var_dump($group);die;
         $this->view->setVar('group', $group);
+
+    }
+    public function logoutAction()
+    {
+        $this->session->destroy();
+        //echo 11111111111111111;die;
+        $this->dispatcher->forward(array(
+            "controller" => "index",
+            "action"     => "login",
+            //"params"     => array('year' => 111111111, '11' => 11111),
+        ));
 
     }
 
