@@ -1,10 +1,10 @@
-<form action="/admin/index/save" method="post">
+<form action="/admin/index/saveChange" method="post">
 <div class="container">
     <h3 class="marginbot">修改<a href="/admin/index/list" class="sgbtn">取消</a></h3>
     <div class="mainbox">
         <table class="login_tab">
             <tr>
-
+                <input type="hidden" id="id" tabindex="1" class="txt" name="id" value=<?=$user[0]['id'];?>  />
                 <td>用户名:</td>
                 <td><input type="text" id="name" tabindex="1" class="txt" name="name" value=<?=$user[0]['name'];?>  /></td>
             </tr>

@@ -14,6 +14,13 @@ class Group extends Model
     {
         return $this->db->select('group', '*', $id);
     }
+    public function getGroupsWhere($wherei)
+    {
+        $where["ORDER"] = "group.id desc";
+        $where["LIMIT"] = $wherei["LIMIT"];
+        $columns        = ["group.id", "group.groupName", "group.access"];
+        return $this->db->select('group', $columns, $where);
+    }
     public function getGroups()
     {
         return $this->db->select('group', '*');

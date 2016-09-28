@@ -4,6 +4,7 @@
  */
 namespace MyApp\Controllers\Admin;
 
+use MyApp\Models\Access;
 use MyApp\Models\Group;
 use Phalcon\Mvc\Controller;
 
@@ -12,6 +13,17 @@ class BaseController extends Controller
     //实现控制器资源的权限管理
     public function beforeExecuteRoute($dispatcher)
     {
+        /*
+         * 为获取每一个资源Action名对应的权限，
+         * 在此处添加一个自动将每一个Action名写入的access表中的动作
+         */
+        $access     = new Access();
+        $ActionName = $dispatcher->getActionName();
+        $accessname = $access->select(['id', 'name'], ['name' => $ActionName]);
+        //如果查询结果为空则将此Action名添加到access表
+        if (!$accessname) {
+            $access->insert(['name' => $ActionName]);
+        }
 
         // 这个方法会在每一个能找到的action前执行
         //取得该Action名称

@@ -1,4 +1,4 @@
-<?php ////$this->partial("shared/header"); ;;;;;;;;;;;;;;;;;;;;;;;;;?>
+<?php ////$this->partial("shared/header"); ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;?>
 
 <!DOCTYPE html>
 <html lang="zh-cn">
@@ -19,8 +19,17 @@
     <![endif]-->
 </head>
 <body>
+
 <div class="container">
-    <td><a href="/admin/index/logout">退出</a></td>
+    <ul class="nav nav-tabs" role="tablist">
+<!--        class="active"-->
+        <li role="presentation" ><a href="/admin/index/index">首页</a></li>
+        <li role="presentation"><a href="/admin/index/list">用户</a></li>
+        <li role="presentation"><a href="/admin/group/list">用户组</a></li>
+        <li role="presentation"><td><a href="/admin/index/logout">退出</a></td></li>
+    </ul>
+
+
 </div>
 <div class="doc doc-login">
     <?php echo $this->getContent(); ?>
@@ -31,4 +40,4 @@
 </body>
 </html>
 
-<?php ////$this->partial("shared/footer"); ;;;;;;;;;;;;;;;;;;;;;;;;;?>
+<?php ////$this->partial("shared/footer"); ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;?>

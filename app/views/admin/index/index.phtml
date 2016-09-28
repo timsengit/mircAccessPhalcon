@@ -1,46 +1,59 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>用户管理</title>
+<div class="container">
+<div class="jumbotron">
+    <h2>用户</h2>
+    <div class="container">
+        <!--				-->                <!-- 通知列表 -->
+        <div class="notice-list" id="J-notice-list">
+            <form action="/admin/student/delect" method="post">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th class="id">序号</th>
+                        <th class="orderId">用户名</th>
+                        <th class="reportTime">添加日期</th>
+                        <th class="orderTitle" style="width: 24%">用户组</th>
+                        <th class="dealType">电话</th>
+                        <th class="dealPerson">qq</th>
+                        <th class="operate">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($user as $row) {
+    ;?>
+                    <div class="container">
+                    <tbody>
+                    <!--合并页面  实现数据读取-->
+                    <tr data-link="/admin/detailed/detailed?id=<?=$row['id'];?>">
+                        <td class="id"><?=$row['id'];?></td>
+                        <td class="read">
+                            <?=$row['name'];?>								</td>
+                        <td class="reportTime"><?php echo date('Y-m-d H:m:s', $row['addTime']); ?></td>
 
-    <!-- Bootstrap -->
-    <link href="admin/css/bootstrap.min.css" rel="stylesheet">
+                        <td class="orderId"> <?=$row['groupName'];?>	 </td>
+                        <td class="dealType">
+                            <?=$row['phone'];?>								</td>
+                        <td class="dealPerson"> <?=$row['qq'];?>	 </td>
+                        <td><a href="/admin/index/edit?id=<?=$row['id'];?>">编辑</a></td>
+                    </tr>
+                    </tbody>
+        </div>
+        <?php ;}
+?>
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-</head>
-<body>
-<div class="doc doc-login">
-    <div class="login-form">
-        <div class="form">
-            <div class="container"><h1>请登录</h1></div>
-            <?php if (isset($permissionMsg) && !empty($permissionMsg)): ?><div class="errormsg"><i class="icon icon-warning-sign"></i> <?php echo $permissionMsg; ?></div><?php endif;?>
-            <form id="loginForm" action="/admin/index/login" method="post">
-                <div class="formitem">
-                    <input type="text" class="form-ipt" id="loginform_user" name="adminName" placeholder="请输入登录账号">
-                    <?php if (isset($accountMsg) && !empty($accountMsg)): ?><div class="errormsg"><i class="icon icon-warning-sign"></i> <?php echo $accountMsg; ?></div><?php endif;?>
-                </div>
-                <div class="formitem">
-                    <input type="password" class="form-ipt" id="loginform_pass" name="adminPwd" placeholder="请输入登录密码">
-                    <?php if (isset($passwordMsg) && !empty($passwordMsg)): ?><div class="errormsg"><i class="icon icon-warning-sign"></i> <?php echo $passwordMsg; ?></div><?php endif;?>
-                </div>
+                    </tbody>
 
-                <div class="action">
-                    <button class="subbtn" type="submit">登录 </button>
-                </div>
+                </table>
             </form>
+            <div class="pagination ovh">
+                <div class="ovh">
+                    <?php echo $page; ?>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="admin/js/bootstrap.min.js"></script>
-</body>
-</html>
+    <div class="jumbotron">
+        <h2>用户组</h2>
+
+    </div>
+</div>

@@ -5,6 +5,7 @@
 namespace MyApp\Controllers\Admin;
 
 use MyApp\Controllers\Admin\BaseController;
+use MyApp\Library\MyPaginator;
 use MyApp\Models\Group;
 use MyApp\Models\User;
 
@@ -18,11 +19,21 @@ class IndexController extends BaseController
 
     public function indexAction()
     {
-        //        $info                  = new Info;
-        //        $where["AND"]["id[>]"] = 6;
-        //        $data                  = $info->select("*", $where);
-        //        var_dump($data);
-        //        $this->view->setVar('company', 111);
+        //分页查询
+        $user           = new User();
+        $currentPage    = $this->request->get('pagination', 'int', 1); //当前页
+        $pageSize       = 3;
+        $offset         = $pageSize * ($currentPage - 1); //偏移量
+        $conut          = $user->count(''); //查询总数
+        $where["LIMIT"] = [$offset, $pageSize];
+        $user           = $user->getUserWithGroupWhere($where);
+//        select('*', $where["LIMIT"]);
+
+        $page = new MyPaginator($conut, $pageSize); //新建分页对象
+        //echo 1111111111111;die;
+        $this->view->setVar('user', $user);
+        $this->view->setVar('page', $page->showpage());
+
     }
     public function loginAction()
     {
@@ -65,13 +76,14 @@ class IndexController extends BaseController
 
                     // 将流转发到当前控制器的另一个动作
                     // 传递参数
-                    $this->dispatcher->forward(array(
-                        "controller" => "index",
-                        "action"     => "list",
-                        //"params"     => array('year' => 111111111, '11' => 11111),
-                    ));
+                    //                    $this->dispatcher->forward(array(
+                    //                        "controller" => "index",
+                    //                        "action"     => "list",
+                    //                        //"params"     => array('year' => 111111111, '11' => 11111),
+                    //                    ));
                     //$this->view->redirect('admin/index/list');
                     //$this->listAction();
+                    $this->response->redirect("/admin/index/index");
 
                 }
             }
@@ -82,7 +94,10 @@ class IndexController extends BaseController
     {
 
         //echo $this->dispatcher->getParam("11");die;
-        $users = (new User())->getUser();
+        // $query = (new User())->getUserWithGroup();
+        //echo 1111111111111111;
+        //var_dump($query);die;
+        $users = (new User())->getUserWithGroup();
         $this->view->setVar('users', $users);
     }
     public function addAction()
@@ -92,6 +107,7 @@ class IndexController extends BaseController
         $this->view->setVar('group', $group);
 
     }
+    //保存添加用户
     public function saveAction()
     {
         $request = $this->request;
@@ -109,9 +125,47 @@ class IndexController extends BaseController
                 'phone'   => $mobile,
                 'groupId' => $group,
             ]);
-        $users = (new User())->getUser();
-        $this->view->setVar('users', $users);
-        $this->view->pick('index/list');
+        //$users = (new User())->getUser();
+        // $this->view->setVar('users', $users);
+        //$this->view->pick('index/list');
+        // 将流转发到当前控制器的另一个动作
+        // 传递参数
+        //        $this->dispatcher->forward(array(
+        //            "controller" => "index",
+        //            "action"     => "list",
+        //            //"params"     => array('year' => 111111111, '11' => 11111),
+        //        ));
+        $this->response->redirect("/admin/index/list");
+    }
+    //保存编辑用户
+    public function saveChangeAction()
+    {
+        $request = $this->request;
+        $id      = $request->getPost('id');
+        $name    = $request->getPost('name');
+        $pwd     = $request->getPost('pwd');
+        $sex     = $request->getPost('sex');
+        $mobile  = $request->getPost('mobile');
+        $group   = $request->getPost('group');
+        $user    = new User();
+        $user->update(['name' => $name,
+            'pwd'                 => $pwd,
+            'sex'                 => $sex,
+            'addTime'             => time(),
+            'phone'               => $mobile,
+            'groupId'             => $group,
+        ], ['id' => $id]);
+        //$users = (new User())->getUser();
+        // $this->view->setVar('users', $users);
+        //$this->view->pick('index/list');
+        // 将流转发到当前控制器的另一个动作
+        // 传递参数
+        //        $this->dispatcher->forward(array(
+        //            "controller" => "index",
+        //            "action"     => "list",
+        //            //"params"     => array('year' => 111111111, '11' => 11111),
+        //        ));
+        $this->response->redirect("/admin/index/list");
     }
     public function editAction()
     {

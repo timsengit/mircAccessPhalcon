@@ -1,6 +1,6 @@
 <div class="container">
-<h1><td><a href="/admin/index/add">添加</a></td></h1>
-<!--<h1><td>--><?php //echo $this->session->get("adminName"); ;;;;;;;;;;;;;;;;;?><!--</td></h1>-->
+<h1><td><a href="/admin/group/add">添加</a></td></h1>
+<!--<h1><td>--><?php //echo $this->session->get("adminName"); ;;;;;;;;;;;;;;;;;;;;;;?><!--</td></h1>-->
 </div>
 
 
@@ -11,11 +11,8 @@
         <thead>
         <tr>
             <th class="id">序号</th>
-            <th class="orderId">用户名</th>
-            <th class="reportTime">添加日期</th>
-            <th class="orderTitle" style="width: 24%">用户组</th>
-            <th class="dealType">电话</th>
-            <th class="dealPerson">qq</th>
+            <th class="orderId">用户组名</th>
+            <th class="reportTime">权限</th>
             <th class="operate">操作</th>
         </tr>
         </thead>
@@ -23,7 +20,7 @@
 
 
 
-        <?php foreach ($users as $row) {
+        <?php foreach ($groups as $row) {
     ;?>
         <div class="container">
             <tbody>
@@ -31,13 +28,9 @@
             <tr data-link="/admin/detailed/detailed?id=<?=$row['id'];?>">
                 <td class="id"><?=$row['id'];?></td>
                 <td class="read">
-                    <?=$row['name'];?>								</td>
-                <td class="reportTime"><?php echo date('Y-m-d H:m:s', $row['addTime']); ?></td>
+                    <?=$row['groupName'];?>								</td>
 
-                <td class="orderId"> <?=$row['groupName'];?>	 </td>
-                <td class="dealType">
-                    <?=$row['phone'];?>								</td>
-                <td class="dealPerson"> <?=$row['qq'];?>	 </td>
+                <td class="orderId"> <?=$row['access'];?>	 </td>
                 <td><a href="/admin/index/edit?id=<?=$row['id'];?>">编辑</a></td>
             </tr>
             </tbody>
@@ -52,4 +45,9 @@
         </tr>
         </tfoot>
     </table>
+    <div class="pagination ovh">
+        <div class="ovh">
+            <?php echo $page; ?>
+        </div>
+    </div>
     </div>
