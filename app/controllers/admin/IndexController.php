@@ -19,7 +19,7 @@ class IndexController extends BaseController
 
     public function indexAction()
     {
-        //分页查询
+        //用户分页查询
         $user           = new User();
         $currentPage    = $this->request->get('pagination', 'int', 1); //当前页
         $pageSize       = 3;
@@ -57,6 +57,8 @@ class IndexController extends BaseController
                     $this->view->accountMsg = '用户不存在！';
                 } elseif (isset($check['isAdmin']) && !$check['isAdmin'] == true) {
                     $this->view->accountMsg = '密码错误，请重新输入！';
+                } elseif ($check['info']['status'] == 0) {
+                    $this->view->accountMsg = '用户被禁用请联系超管！！';
                 } else {
                     // var_dump($check['info']);
                     //echo 6555;die;
@@ -93,12 +95,21 @@ class IndexController extends BaseController
     public function listAction()
     {
 
-        //echo $this->dispatcher->getParam("11");die;
-        // $query = (new User())->getUserWithGroup();
-        //echo 1111111111111111;
-        //var_dump($query);die;
-        $users = (new User())->getUserWithGroup();
-        $this->view->setVar('users', $users);
+        //用户分页查询
+        $user           = new User();
+        $currentPage    = $this->request->get('pagination', 'int', 1); //当前页
+        $pageSize       = 3;
+        $offset         = $pageSize * ($currentPage - 1); //偏移量
+        $conut          = $user->count(''); //查询总数
+        $where["LIMIT"] = [$offset, $pageSize];
+        $user           = $user->getUserWithGroupWhere($where);
+//        select('*', $where["LIMIT"]);
+
+        $page = new MyPaginator($conut, $pageSize); //新建分页对象
+        //echo 1111111111111;die;
+        $this->view->setVar('user', $user);
+        $this->view->setVar('page', $page->showpage());
+
     }
     public function addAction()
     {
@@ -147,6 +158,7 @@ class IndexController extends BaseController
         $sex     = $request->getPost('sex');
         $mobile  = $request->getPost('mobile');
         $group   = $request->getPost('group');
+        $status  = $request->getPost('status');
         $user    = new User();
         $user->update(['name' => $name,
             'pwd'                 => $pwd,
@@ -154,6 +166,7 @@ class IndexController extends BaseController
             'addTime'             => time(),
             'phone'               => $mobile,
             'groupId'             => $group,
+            'status'              => $status,
         ], ['id' => $id]);
         //$users = (new User())->getUser();
         // $this->view->setVar('users', $users);
@@ -169,10 +182,12 @@ class IndexController extends BaseController
     }
     public function editAction()
     {
-        $request = $this->request;
-        $id      = $request->get('id');
-        $user    = new User();
-        $userone = $user->select('*', ['id' => $id]);
+        $request     = $this->request;
+        $id          = $request->get('id');
+        $user        = new User();
+        $where["ID"] = $id;
+        $userone     = $user->getUserWithGroupWhereId($where);
+        //$userone = $user->select('*', ['id' => $id]);
         $this->view->setVar('user', $userone);
         $group = (new Group())->getGroups();
         // var_dump($group);die;

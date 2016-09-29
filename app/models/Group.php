@@ -12,7 +12,7 @@ class Group extends Model
 
     public function getGroup($id)
     {
-        return $this->db->select('group', '*', $id);
+        return $this->db->select('group', '*', ['id' => $id]);
     }
     public function getGroupsWhere($wherei)
     {

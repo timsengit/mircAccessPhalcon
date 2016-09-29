@@ -33,19 +33,53 @@ class GroupController extends BaseController
         $this->view->setVar('access', $access);
 
     }
+    public function editAction()
+    {
+        $request = $this->request;
+        $id      = $request->get('id');
+        //echo $id;die;
+        $group    = new Group();
+        $groupone = $group->getGroup($id);
+        //var_dump($groupone);die;
+
+        $access = (new Access())->select('*', []);
+        //var_dump($access);die;
+        $this->view->setVar('group', $groupone[0]);
+
+        $this->view->setVar('access', $access);
+
+    }
     //保存添加用户组
     public function saveAction()
     {
         $request      = $this->request;
-        $name         = $request->getPost('name');
-        $access       = $request->getPost('access');
-        $accessInsert = implode('-', $access);
-        //var_dump($accessInsert);die;
-        $this->db->insert('group',
-            ['groupName' => $name,
-                'access'     => $accessInsert,
-            ]);
-        $this->response->redirect("/admin/group/list");
+        $submitsubmit = $request->get('submitsubmit');
+        //$submitdelete = $request->get('submitdelete');
+        //打印：NULL
+        //string(0) ""
+        //故通过判断是否是字符串来断定提交项
+        //var_dump($submitsubmit);
+        //        echo "<pre>";
+        //        var_dump($submitdelete);
+        if (is_string($submitsubmit)) {
+            //echo "submie";//提交更改
+            $name         = $request->getPost('name');
+            $access       = $request->getPost('access');
+            $accessInsert = implode('-', $access);
+            //var_dump($accessInsert);die;
+            $this->db->insert('group',
+                ['groupName' => $name,
+                    'access'     => $accessInsert,
+                ]);
+            $this->response->redirect("/admin/group/list");
+        } else {
+            //echo "delete";//提交删除
+            $group = new Group();
+            $id    = $request->getPost('id');
+            $group->delete(['id' => $id]);
+            $this->response->redirect("/admin/group/list");
+        };
+
     }
 
 }

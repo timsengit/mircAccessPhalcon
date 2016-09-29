@@ -11,15 +11,15 @@
                         <th class="id">序号</th>
                         <th class="orderId">用户名</th>
                         <th class="reportTime">添加日期</th>
-                        <th class="orderTitle" style="width: 24%">用户组</th>
+                        <th class="orderTitle" style="width: 24%">用户组(悬停查看权限)</th>
                         <th class="dealType">电话</th>
                         <th class="dealPerson">qq</th>
+                        <th class="dealPerson">状态</th>
                         <th class="operate">操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($user as $row) {
-    ;?>
+                    <?php foreach ($user as $row) {;?>
                     <div class="container">
                     <tbody>
                     <!--合并页面  实现数据读取-->
@@ -29,10 +29,12 @@
                             <?=$row['name'];?>								</td>
                         <td class="reportTime"><?php echo date('Y-m-d H:m:s', $row['addTime']); ?></td>
 
-                        <td class="orderId"> <?=$row['groupName'];?>	 </td>
-                        <td class="dealType">
+                        <td class="groupName" title=<?php echo "权限：" . $row['access']; ?>> <?=$row['groupName'];?>	 </td>
+                        <td class="phone">
                             <?=$row['phone'];?>								</td>
                         <td class="dealPerson"> <?=$row['qq'];?>	 </td>
+                        <td class="dealPerson"> <?php if ($row['status'] == 1) {echo "启用中";} else {echo "已禁用";}
+    ;?>	 </td>
                         <td><a href="/admin/index/edit?id=<?=$row['id'];?>">编辑</a></td>
                     </tr>
                     </tbody>
@@ -52,8 +54,5 @@
         </div>
     </div>
 </div>
-    <div class="jumbotron">
-        <h2>用户组</h2>
 
-    </div>
 </div>

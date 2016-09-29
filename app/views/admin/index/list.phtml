@@ -1,6 +1,6 @@
 <div class="container">
 <h1><td><a href="/admin/index/add">添加</a></td></h1>
-<!--<h1><td>--><?php //echo $this->session->get("adminName"); ;;;;;;;;;;;;;;;;;?><!--</td></h1>-->
+<!--<h1><td>--><?php //echo $this->session->get("adminName"); ;;;;;;;;;;;;;;;;;;;;?><!--</td></h1>-->
 </div>
 
 
@@ -16,6 +16,7 @@
             <th class="orderTitle" style="width: 24%">用户组</th>
             <th class="dealType">电话</th>
             <th class="dealPerson">qq</th>
+            <th class="dealPerson">状态</th>
             <th class="operate">操作</th>
         </tr>
         </thead>
@@ -23,7 +24,7 @@
 
 
 
-        <?php foreach ($users as $row) {
+        <?php foreach ($user as $row) {
     ;?>
         <div class="container">
             <tbody>
@@ -38,6 +39,8 @@
                 <td class="dealType">
                     <?=$row['phone'];?>								</td>
                 <td class="dealPerson"> <?=$row['qq'];?>	 </td>
+                <td class="dealPerson"> <?php if ($row['status'] == 1) {echo "启用中";} else {echo "已禁用";}
+    ;?>	 </td>
                 <td><a href="/admin/index/edit?id=<?=$row['id'];?>">编辑</a></td>
             </tr>
             </tbody>
@@ -50,6 +53,12 @@
                 <span></span>
             </td>
         </tr>
+
         </tfoot>
     </table>
+    <div class="pagination ovh">
+        <div class="ovh">
+            <?php echo $page; ?>
+        </div>
+    </div>
     </div>

@@ -13,6 +13,7 @@ class MyPaginator
     private $page; //当前页码
     private $pagenum; //总页码
     private $url; //地址
+    private $pagenaem; //标签名
 
     //构造方法初始化
     public function __construct($total, $pagesize)

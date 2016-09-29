@@ -20,15 +20,16 @@ class User extends Model
     //取得管理用户组之后的用户列表
     public function getUserWithGroup()
     {
+        //echo 1111;die;
         //return 22222;
         $join = [
             "[>]group" => ["groupId" => "id"],
         ];
         $where["ORDER"] = "user.id desc";
-        $columns        = ["user.id", "user.phone", "user.qq", "user.addTime", "user.name", "group.groupName"];
+        $columns        = ["user.id", "user.phone", "user.qq", "user.status", "user.addTime", "user.name", "group.groupName", "group.access"];
         return $this->db->select("user", $join, $columns, $where);
     }
-    //取得管理用户组之后的用户列表
+    //取得管理用户组之后的用户列表分页类limit限制
     public function getUserWithGroupWhere($wherei)
     {
         //return 22222;
@@ -37,7 +38,19 @@ class User extends Model
         ];
         $where["ORDER"] = "user.id desc";
         $where["LIMIT"] = $wherei["LIMIT"];
-        $columns        = ["user.id", "user.phone", "user.qq", "user.addTime", "user.name", "group.groupName"];
+        $columns        = ["user.id", "user.phone", "user.qq", "user.status", "user.addTime", "user.name", "group.groupName", "group.access"];
+        return $this->db->select("user", $join, $columns, $where);
+    }
+    //取得管理用户组之后的用户列表 //按user.id搜索
+    public function getUserWithGroupWhereId($wherei)
+    {
+        //return 22222;
+        $join = [
+            "[>]group" => ["groupId" => "id"],
+        ];
+        $where["ORDER"]   = "user.id desc";
+        $where["user.id"] = $wherei['ID'];
+        $columns          = ["user.id", "user.phone", "user.status", "user.qq", "user.addTime", "user.name", "group.groupName", "group.access"];
         return $this->db->select("user", $join, $columns, $where);
     }
     public function checkUser($adminName, $adminPwd)

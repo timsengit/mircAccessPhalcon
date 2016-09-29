@@ -1,0 +1,30 @@
+<form action="/admin/group/save" method="post">
+<div class="container">
+    <h3 class="marginbot">添加用户组<a href="/admin/group/list" class="sgbtn">返回列表</a></h3>
+    <div class="mainbox">
+        <table class="login_tab">
+            <tr>
+                <td>用户组名:</td>
+                <td><input type="text" id="name" tabindex="1" class="txt" name="name" value=<?=$group['groupName'];?> /></td>
+                <input type="hidden" id="id" tabindex="1" class="txt" name="id" value=<?=$group['id'];?> />
+            </tr>
+
+            <tr>
+                <td>用户组权限:</td>
+                <td>
+                    <?php foreach ($access as $row) {;?>
+                        <label><input name="access[]" type="checkbox" value=<?=$row['name'];?> /><?=$row['name'];?></label>
+                    <?php }
+;?>
+
+                </td>
+            </tr>
+        </table>
+
+        <!-- Indicates a successful or positive action -->
+        <button name="submitsubmit" type="submit" class="btn btn-success">提交</button>
+        <!-- Indicates a dangerous or potentially negative action -->
+        <button name="submitdelete" type="submit" class="btn btn-danger">删除</button>
+    </div>
+</div>
+</form>
